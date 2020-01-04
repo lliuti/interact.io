@@ -3,6 +3,7 @@ import { Router } from 'express';
 import UserController from './app/controllers/UserController';
 import PostController from './app/controllers/PostController';
 import SessionController from './app/controllers/SessionController';
+import CommentController from './app/controllers/CommentController';
 import AuthMiddleware from './app/middlewares/AuthMiddleware';
 
 const routes = new Router();
@@ -11,7 +12,7 @@ const routes = new Router();
 routes.get('/users', UserController.index);
 routes.post('/users', UserController.store);
 
-/* SESSION */
+/* CREATE SESSION */
 routes.post('/auth', SessionController.store);
 
 /* SIGNED IN VERIFICATION */
@@ -21,4 +22,7 @@ routes.use(AuthMiddleware);
 routes.get('/posts', PostController.index);
 routes.post('/posts', PostController.store);
 
-export default routes;
+/* COMMENTS */
+routes.post('/posts/:post_id/comments', CommentController.store);
+
+export default routes; 
