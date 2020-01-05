@@ -31,10 +31,7 @@ class PostController {
         model: User,
         as: 'author',
         attributes: ['id', 'name', 'nickname', 'email', 'age'], 
-      }],
-      include: [{
-        model: Comment,
-        as: 'comments',
+        required: true,
       }],
     });
     return res.json(posts);
