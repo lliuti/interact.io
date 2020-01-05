@@ -23,6 +23,7 @@ routes.get('/posts', PostController.index);
 routes.post('/posts', PostController.store);
 
 /* COMMENTS */
+routes.get('/posts/:post_id/comments', CommentController.index);
 routes.post('/posts/:post_id/comments', CommentController.store);
 
 export default routes; 
