@@ -15,7 +15,10 @@ class UserController {
       return res.json({ error: 'Invalid or insufficient information' });
     };
 
-    const { email } = req.body;
+    const { name, nickname, email, password, age } = req.body;
+
+    const hype = 1;
+    const friends = [];
 
     const doesExist = await User.findOne({ where: { email } });
   
@@ -23,11 +26,11 @@ class UserController {
       return res.json({ error: 'This e-mail is already in use' });
     };
 
-    const user = await User.create(req.body);
+    const user = await User.create({ name, nickname, email, password, age, hype, friends });
 
-    const { id, name, nickname, age } = user;
+    const { id } = user;
 
-    return res.json({ id, name, nickname, email, age });
+    return res.json({ id, name, nickname, email, age, hype, friends });
   };
 
   async index(req, res) {

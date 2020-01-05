@@ -31,6 +31,14 @@ module.exports = {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
+        hype: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+        },
+        friends: {
+          type: Sequelize.ARRAY(Sequelize.STRING),
+          allowNull: false,
+        },
         created_at: {
           type: Sequelize.DATE,
           allowNull: false,
