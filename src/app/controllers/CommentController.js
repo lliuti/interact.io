@@ -9,7 +9,7 @@ class CommentController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.json({ error: 'Invalid or insufficient information' });
+      return res.status(400).json({ error: 'Invalid or insufficient information' });
     };
 
     const { content } = req.body;
@@ -18,7 +18,7 @@ class CommentController {
 
     const comment = await Comment.create({ content, post_id, user_id });
     
-    return res.json(comment);
+    return res.status(201).json(comment);
 
   };
 
@@ -33,7 +33,7 @@ class CommentController {
       attributes: ['id', 'content', 'createdAt'],
     })
 
-    return res.json(comments);
+    return res.status(200).json(comments);
   };
 };
 

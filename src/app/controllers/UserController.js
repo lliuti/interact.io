@@ -12,7 +12,7 @@ class UserController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.json({ error: 'Invalid or insufficient information' });
+      return res.status(400).json({ error: 'Invalid or insufficient information' });
     };
 
     const { name, nickname, email, password, age } = req.body;
@@ -23,21 +23,21 @@ class UserController {
     const doesExist = await User.findOne({ where: { email } });
   
     if (doesExist) {
-      return res.json({ error: 'This e-mail is already in use' });
+      return res.status(400).json({ error: 'This e-mail is already in use' });
     };
 
     const user = await User.create({ name, nickname, email, password, age, hype, friends });
 
     const { id } = user;
 
-    return res.json({ id, name, nickname, email, age, hype, friends });
+    return res.status(201).json({ id, name, nickname, email, age, hype, friends });
   };
 
   async index(req, res) {
     const users = await User.findAll({
       attributes: ['id', 'name', 'nickname', 'email', 'age', 'createdAt']
     });
-    return res.json(users);
+    return res.status(200).json(users);
   };
 }
 

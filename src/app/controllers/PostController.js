@@ -13,7 +13,7 @@ class PostController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.json({ error: 'Invalid or insufficient information' });
+      return res.status(400).json({ error: 'Invalid or insufficient information' });
     }
 
     const { title, content, likes, shares } = req.body;
@@ -22,7 +22,7 @@ class PostController {
 
     const post = await Post.create({ title, content, likes, shares, user_id });
 
-    return res.json(post);
+    return res.status(201).json(post);
   };
 
   async index(req, res) {
@@ -34,7 +34,7 @@ class PostController {
         required: true,
       }],
     });
-    return res.json(posts);
+    return res.status(200).json(posts);
   };
 };  
 

@@ -17,16 +17,16 @@ class SessionController {
     });
 
     if (!user) {
-      return res.json({ error: 'User not found' });
+      return res.status(401).json({ error: 'User not found' });
     };
 
     if (!(await user.checkPassword(password))) {
-      return res.json({ error: 'Password does not match!' });
+      return res.status(401).json({ error: 'Password does not match!' });
     }
 
     const { id, name, age } = user;
 
-    return res.json({
+    return res.status(201).json({
       user: { id, name, nickname, email, age },
       token: jwt.sign({id}, auth.secret, {
         expiresIn: auth.expiresIn
