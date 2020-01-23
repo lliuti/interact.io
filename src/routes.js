@@ -21,6 +21,7 @@ routes.use(AuthMiddleware);
 /* POSTS */
 routes.get('/posts', PostController.index);
 routes.post('/posts', PostController.store);
+routes.delete('/posts/:id', PostController.destroy);
 
 /* COMMENTS */
 routes.get('/posts/:post_id/comments', CommentController.index);

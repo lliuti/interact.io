@@ -36,6 +36,21 @@ class PostController {
     });
     return res.status(200).json(posts);
   };
+
+  async destroy(req, res) {
+    const { id } = req.params;
+
+    const userId = req.userId;
+
+    const post = await Post.destroy({
+      where: {
+        id,
+        user_id: userId,
+      },
+    });
+    
+    return res.status(204).json();
+  };
 };  
 
 export default new PostController();
