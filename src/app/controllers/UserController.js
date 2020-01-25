@@ -33,6 +33,28 @@ class UserController {
     return res.status(201).json({ id, name, nickname, email, age, hype, friends });
   };
 
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      nickname: Yup.string(),
+      email: Yup.string().email(),
+      password: Yup.string(),
+    });
+    
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Invalid or insufficient information' });
+    }
+
+    const user = await User.update(req.body, {
+      where: {
+        id: req.userId,
+      },
+    })
+
+    return res.json({ ok: 'User successfully updated' });
+
+  };
+
   async index(req, res) {
     const users = await User.findAll({
       attributes: ['id', 'name', 'nickname', 'email', 'age', 'createdAt']
