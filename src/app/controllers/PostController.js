@@ -33,6 +33,7 @@ class PostController {
         attributes: ['id', 'name', 'nickname', 'email', 'age'], 
         required: true,
       }],
+      attributes: ['id', 'title', 'content', 'createdAt'],
     });
     return res.status(200).json(posts);
   };
@@ -50,6 +51,29 @@ class PostController {
     });
     
     return res.status(204).json();
+  };
+
+  async update(req, res) {
+    const { id } = req.params;
+
+    const schema = Yup.object().shape({
+      title: Yup.string(),
+      content: Yup.string(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.json({ error: 'Invalid or insufficient information' });
+    };
+
+    const post = await Post.update(req.body, {
+      where: {
+        id,
+        user_id: req.userId,
+      },
+    });
+
+    return res.json({ ok: 'Post successfully updated!' });
+
   };
 };  
 
