@@ -18,10 +18,14 @@ routes.post('/auth', SessionController.store);
 /* SIGNED IN VERIFICATION */
 routes.use(AuthMiddleware);
 
+/* USERS */
+routes.put('/users', UserController.update);
+
 /* POSTS */
 routes.get('/posts', PostController.index);
 routes.post('/posts', PostController.store);
 routes.delete('/posts/:id', PostController.destroy);
+routes.put('/posts/:id', PostController.update);
 
 /* COMMENTS */
 routes.get('/posts/:post_id/comments', CommentController.index);
